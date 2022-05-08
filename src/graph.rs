@@ -1,5 +1,7 @@
 use std::{
+    cmp::Eq,
     collections::{HashMap, HashSet},
+    hash::Hash,
     rc::Rc,
 };
 
@@ -36,8 +38,12 @@ where
 {
     pub fn new(nodes: Vec<A>) -> Self {
         let nodes: Vec<Rc<A>> = nodes.into_iter().map(Rc::new).collect();
-        let node_index: HashMap<_, _> = nodes.iter().enumerate().map(|(a, b)| (b, a)).collect();
-        let edges = { 0..nodes.len() }.map(|_| HashMap::new()).collect();
+        let node_index: HashMap<_, _> = nodes
+            .iter()
+            .enumerate()
+            .map(|(a, b)| (b.clone(), a))
+            .collect();
+        let edges = { 0..nodes.len() }.map(|_| HashSet::new()).collect();
         Self {
             nodes,
             node_index,

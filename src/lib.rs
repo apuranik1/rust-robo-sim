@@ -11,7 +11,7 @@ pub struct Color {
     b: u8,
 }
 
-mod colors {
+pub mod colors {
     use super::Color;
 
     pub const BLACK: Color = Color { r: 0, g: 0, b: 0 };
